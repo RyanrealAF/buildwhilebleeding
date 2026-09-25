@@ -1,0 +1,2 @@
+/hardwire https://the-hardwire-method.pages.dev/ 200
+/hardwire/* https://the-hardwire-method.pages.dev/:splat 200
