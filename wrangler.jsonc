@@ -1,0 +1,25 @@
+{
+  "name": "buildwhilebleeding",
+  "main": "src/worker.ts",
+  "compatibility_date": "2026-09-25",
+  "assets": {
+    "directory": "./dist",
+    "binding": "ASSETS"
+  },
+  "routes": [
+    {
+      "pattern": "buildwhilebleeding.com/*",
+      "zone_name": "buildwhilebleeding.com"
+    },
+    {
+      "pattern": "www.buildwhilebleeding.com/*",
+      "zone_name": "buildwhilebleeding.com"
+    }
+  ],
+  "vars": {
+    "HARDWIRE_ORIGIN": "https://the-hardwire-method.pages.dev",
+    "SEUSS_ORIGIN": "__SET_ME__",
+    "LEAK_REPORT_ORIGIN": "__SET_ME__",
+    "CARTOGRAPHY_ORIGIN": "__SET_ME__"
+  }
+}
