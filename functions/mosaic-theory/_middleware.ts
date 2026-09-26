@@ -22,13 +22,9 @@ export async function onRequest(context: any) {
   if (contentType.includes("text/html")) {
     let html = await response.text();
 
-    html = html
-      .replace(/(src|href)="\/assets\//g, '$1="/mosaic-theory/assets/')
-      .replaceAll('src="/src/main.tsx"', 'src="/mosaic-theory/src/main.tsx"')
-      .replaceAll('href="/manifest.json"', 'href="/mosaic-theory/manifest.json"')
-      .replaceAll('href="/icon-192.png"', 'href="/mosaic-theory/icon-192.png"')
-      .replaceAll('href="/icons/icon.svg"', 'href="/mosaic-theory/icons/icon.svg"')
-      .replaceAll('src="/sw.js"', 'src="/mosaic-theory/sw.js"');
+    // The upstream app is root-based. Rebase root-relative resources so
+    // scripts, styles, icons, manifests, and client routes stay inside the mount.
+    html = html.replace(/(src|href)="\/(?!mosaic-theory\/)([^"]+)"/g, '$1="/mosaic-theory/$2"');
 
     return new Response(html, {
       status: response.status,
