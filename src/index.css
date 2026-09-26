@@ -34,15 +34,15 @@ header .wrap{display:flex;align-items:center;justify-content:space-between;paddi
 nav a{font-size:.75rem;text-decoration:none;text-transform:uppercase;color:var(--paper);border-bottom:1px solid transparent;transition:border-color .2s,color .2s}
 nav a:hover{color:var(--bronze);border-color:var(--bronze)}
 
-.hero{min-height:82vh;display:flex;flex-direction:column;justify-content:center;padding:3.5rem 0}
+.hero{min-height:auto;display:flex;flex-direction:column;justify-content:center;padding:2.25rem 0 1.5rem}
 .hero .tag{font-size:.8rem;color:var(--bronze);text-transform:uppercase;margin:0 0 1.25rem;opacity:0;animation:rise .6s ease-out .1s forwards}
 .hero h1{
   font-family:'Big Shoulders Display',sans-serif;font-weight:900;
-  font-size:clamp(3rem,11vw,7.5rem);line-height:.88;letter-spacing:-.01em;
-  margin:0 0 1.5rem;color:var(--highlight);text-transform:uppercase;
+  font-size:clamp(3.4rem,10vw,7.5rem);line-height:.84;letter-spacing:-.01em;
+  margin:0 0 1rem;color:var(--highlight);text-transform:uppercase;
   opacity:0;animation:rise .7s ease-out .25s forwards
 }
-.hero>p:not(.tag){max-width:46ch;font-size:1.05rem;line-height:1.6;color:var(--paper);opacity:0;animation:rise .7s ease-out .4s forwards}
+.hero>p:not(.tag){max-width:46ch;font-size:1rem;line-height:1.45;color:var(--paper);opacity:0;animation:rise .7s ease-out .4s forwards}
 .hero p em{color:var(--bronze);font-style:normal}
 .cta{margin-top:2.25rem;opacity:0;animation:rise .7s ease-out .55s forwards}
 .cta a{
@@ -54,32 +54,32 @@ nav a:hover{color:var(--bronze);border-color:var(--bronze)}
 @keyframes rise{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:translateY(0)}}
 @media (prefers-reduced-motion:reduce){.hero .tag,.hero h1,.hero>p,.cta{animation:none;opacity:1}}
 
-.index-intro{padding:2.5rem 0 1.5rem;border-top:1px solid var(--concrete)}
+.index-intro{padding:1rem 0 .75rem;border-top:1px solid var(--concrete)}
 .index-intro p{font-style:italic;font-size:1.15rem;color:var(--highlight);max-width:50ch;margin:0}
 
 .archive a.entry{
-  display:grid;grid-template-columns:4.5rem 1fr auto;align-items:center;gap:1.25rem;
-  text-decoration:none;padding:1.75rem 0;border-top:1px solid var(--concrete);
+  display:grid;grid-template-columns:3rem 1fr auto;align-items:center;gap:1rem;
+  text-decoration:none;padding:.9rem 0;border-top:1px solid var(--concrete);
   transition:background .2s;position:relative
 }
 .archive a.entry:last-child{border-bottom:1px solid var(--concrete)}
 .archive a.entry:hover{background:var(--graphite)}
-.entry .num{font-family:'IBM Plex Mono',monospace;font-size:1.6rem;color:var(--concrete);font-weight:500;transition:color .2s}
+.entry .num{font-family:'IBM Plex Mono',monospace;font-size:1.15rem;color:var(--concrete);font-weight:500;transition:color .2s}
 .archive a.entry:hover .num{color:var(--bronze)}
-.entry .body .cat{font-size:.7rem;text-transform:uppercase;color:var(--rust);display:block;margin-bottom:.4rem}
+.entry .body .cat{font-size:.7rem;text-transform:uppercase;color:var(--rust);display:block;margin-bottom:.2rem}
 .entry .body h2{
   font-family:'Big Shoulders Display',sans-serif;font-weight:700;text-transform:uppercase;
-  font-size:clamp(1.4rem,3.2vw,2rem);margin:0 0 .35rem;color:var(--highlight);
+  font-size:clamp(1.4rem,3.2vw,2rem);margin:0 0 .15rem;color:var(--highlight);
   background-image:linear-gradient(var(--bronze),var(--bronze));background-repeat:no-repeat;
   background-position:0 100%;background-size:0% 1px;transition:background-size .25s
 }
 .archive a.entry:hover .body h2{background-size:100% 1px}
-.entry .body p{margin:0;font-style:italic;color:var(--paper);opacity:.85;font-size:.95rem}
+.entry .body p{margin:0;font-style:italic;color:var(--paper);opacity:.85;font-size:.82rem}
 .entry .route{font-size:.7rem;color:var(--bronze);white-space:nowrap;opacity:0;transform:translateX(-6px);transition:opacity .25s,transform .25s;justify-self:end}
 .archive a.entry:hover .route{opacity:1;transform:translateX(0)}
 
-footer{border-top:2px solid var(--rust);padding:3rem 0 2.5rem}
-footer .line{font-family:'Big Shoulders Display',sans-serif;font-weight:700;text-transform:uppercase;font-size:clamp(1.1rem,3vw,1.6rem);color:var(--highlight);margin:0 0 2rem}
+footer{border-top:2px solid var(--rust);padding:1.25rem 0 1.5rem}
+footer .line{font-family:'Big Shoulders Display',sans-serif;font-weight:700;text-transform:uppercase;font-size:clamp(1rem,3vw,1.4rem);color:var(--highlight);margin:0 0 1rem}
 footer .row{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:.75rem;font-size:.75rem;color:var(--paper);opacity:.75}
 
 @media (max-width:640px){
