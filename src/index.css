@@ -75,8 +75,8 @@ nav a:hover{color:var(--bronze);border-color:var(--bronze)}
 }
 .archive a.entry:hover .body h2{background-size:100% 1px}
 .entry .body p{margin:0;font-style:italic;color:var(--paper);opacity:.85;font-size:.82rem}
-.entry .route{font-size:.7rem;color:var(--bronze);white-space:nowrap;opacity:0;transform:translateX(-6px);transition:opacity .25s,transform .25s;justify-self:end}
-.archive a.entry:hover .route{opacity:1;transform:translateX(0)}
+.entry .route{font-size:.8rem;color:var(--bronze);white-space:nowrap;opacity:.8;transition:opacity .25s,color .25s;justify-self:end}
+.archive a.entry:hover .route{opacity:1;color:var(--highlight)}
 
 footer{border-top:2px solid var(--rust);padding:1.25rem 0 1.5rem}
 footer .line{font-family:'Big Shoulders Display',sans-serif;font-weight:700;text-transform:uppercase;font-size:clamp(1rem,3vw,1.4rem);color:var(--highlight);margin:0 0 1rem}
