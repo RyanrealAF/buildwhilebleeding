@@ -19,7 +19,7 @@ export default function App() {
       <main className="wrap">
         <section className="hero">
           <p className="tag mono">Tools. Theory. Field reports. Maps.</p>
-          <h1>Build what<br />survives.</h1>
+          <h1>Build While<br />Bleeding.</h1>
           <p>Independent systems, research, writing, music, and fieldwork built <em>outside the clean room.</em></p>
         </section>
 
