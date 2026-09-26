@@ -1,18 +1,55 @@
-import { ProjectCard } from "./components/ProjectCard";
-
 const projects = [
-  { number: "01", name: "Hardwire", description: "Music theory for the streets.", href: "/hardwire", kind: "Interactive system" },
-  { number: "02", name: "Seuss", description: "A theory library for rhythm, meter, rhyme, and transfer.", href: "/library/seuss", kind: "Theory library" },
-  { number: "03", name: "The Leak Report", description: "An educational field manual for listening beneath the words.", href: "/the-leak-report", kind: "Field manual" },
-  { number: "04", name: "Cartography", description: "Writings, songs, PSAs, and the broader archive.", href: "/cartography", kind: "Creative archive" },
-  { number: "05", name: "The Mosaic Theory", description: "An interactive medico-legal academic ledger.", href: "/mosaic-theory", kind: "Research ledger" }
+  { number: "01", name: "Hardwire", category: "System", description: "Music theory for the streets.", href: "/hardwire" },
+  { number: "02", name: "Seuss", category: "Library", description: "Rhythm. Meter. Rhyme. Transfer.", href: "/library/seuss" },
+  { number: "03", name: "The Leak Report", category: "Field", description: "Listening beneath the words.", href: "/the-leak-report" },
+  { number: "04", name: "Cartography", category: "Archive", description: "Songs, narratives, PSAs, documents.", href: "/cartography" },
+  { number: "05", name: "The Mosaic Theory", category: "Ledger", description: "Evidence. Medicine. Law. Reconstruction.", href: "/mosaic-theory" }
 ];
 
 export default function App() {
-  return <main>
-    <header className="masthead"><div className="eyebrow">BUILD WHILE BLEEDING</div><div className="rule" /><p className="tagline">Tools. Theory. Field reports. Maps.</p></header>
-    <section className="hero"><p className="kicker">THE FRONT DOOR</p><h1>Build what survives.</h1><p className="intro">A working archive of systems, theory, field manuals, and creative work built outside the clean room.</p></section>
-    <section className="projects" aria-label="Projects">{projects.map(project => <ProjectCard key={project.name} {...project} />)}</section>
-    <footer><span>RYANREALAF</span><span>BUILD WHILE BLEEDING</span></footer>
-  </main>;
+  return (
+    <>
+      <header>
+        <div className="wrap">
+          <a className="wordmark" href="/" aria-label="Build While Bleeding home">BWB<span>/</span></a>
+          <nav aria-label="Primary navigation"><a className="mono" href="#archive">Index</a></nav>
+        </div>
+      </header>
+
+      <main className="wrap">
+        <section className="hero">
+          <p className="tag mono">Tools. Theory. Field reports. Maps.</p>
+          <h1>Build what<br />survives.</h1>
+          <p>Independent systems, research, writing, music, and fieldwork built <em>outside the clean room.</em></p>
+          <div className="cta"><a href="#archive">[ Enter the Archive ]</a></div>
+        </section>
+
+        <section className="index-intro">
+          <p>Five territories. One address.</p>
+        </section>
+
+        <section className="archive" id="archive" aria-label="Project archive">
+          {projects.map((project) => (
+            <a className="entry" href={project.href} key={project.name}>
+              <span className="num">{project.number}</span>
+              <span className="body">
+                <span className="cat mono">{project.category}</span>
+                <h2>{project.name}</h2>
+                <p>{project.description}</p>
+              </span>
+              <span className="route mono">{`buildwhilebleeding.com${project.href}`}</span>
+            </a>
+          ))}
+        </section>
+
+        <footer>
+          <p className="line">Built outside the clean room.</p>
+          <div className="row">
+            <span className="mono">RYANREALAF</span>
+            <span className="mono">BUILD WHILE BLEEDING</span>
+          </div>
+        </footer>
+      </main>
+    </>
+  );
 }
