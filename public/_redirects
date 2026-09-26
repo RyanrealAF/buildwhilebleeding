@@ -1,4 +1,2 @@
-/hardwire https://the-hardwire-method.pages.dev/ 200
-/hardwire/* https://the-hardwire-method.pages.dev/:splat 200
 /mosaic-theory https://the-mosaic-theory.pages.dev/ 200
 /mosaic-theory/* https://the-mosaic-theory.pages.dev/:splat 200
