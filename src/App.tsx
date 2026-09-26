@@ -4,7 +4,8 @@ const projects = [
   { number: "01", name: "Hardwire", description: "Music theory for the streets.", href: "/hardwire", kind: "Interactive system" },
   { number: "02", name: "Seuss", description: "A theory library for rhythm, meter, rhyme, and transfer.", href: "/library/seuss", kind: "Theory library" },
   { number: "03", name: "The Leak Report", description: "An educational field manual for listening beneath the words.", href: "/the-leak-report", kind: "Field manual" },
-  { number: "04", name: "Cartography", description: "Writings, songs, PSAs, and the broader archive.", href: "/cartography", kind: "Creative archive" }
+  { number: "04", name: "Cartography", description: "Writings, songs, PSAs, and the broader archive.", href: "/cartography", kind: "Creative archive" },
+  { number: "05", name: "The Mosaic Theory", description: "An interactive medico-legal academic ledger.", href: "/mosaic-theory", kind: "Research ledger" }
 ];
 
 export default function App() {
