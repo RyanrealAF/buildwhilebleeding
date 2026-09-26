@@ -1,9 +1,9 @@
 const projects = [
-  { number: "01", name: "Hardwire", category: "System", description: "Music theory for the streets.", href: "/hardwire" },
-  { number: "02", name: "Seuss", category: "Library", description: "Rhythm. Meter. Rhyme. Transfer.", href: "/library/seuss" },
-  { number: "03", name: "The Leak Report", category: "Field", description: "Listening beneath the words.", href: "/the-leak-report" },
-  { number: "04", name: "Cartography", category: "Archive", description: "Songs, narratives, PSAs, documents.", href: "/cartography" },
-  { number: "05", name: "The Mosaic Theory", category: "Ledger", description: "Evidence. Medicine. Law. Reconstruction.", href: "/mosaic" }
+  { number: "01", name: "Hardwire", category: "System", description: "Music theory for the streets.", href: "https://github.com/RyanrealAF/Hardwire" },
+  { number: "02", name: "Seuss", category: "Library", description: "Rhythm. Meter. Rhyme. Transfer.", href: "https://github.com/RyanrealAF/Seuss" },
+  { number: "03", name: "The Leak Report", category: "Field", description: "Listening beneath the words.", href: "https://github.com/RyanrealAF/Theleakreport" },
+  { number: "04", name: "Cartography", category: "Archive", description: "Songs, narratives, PSAs, documents.", href: "https://github.com/RyanrealAF/Cartography" },
+  { number: "05", name: "The Mosaic Theory", category: "Ledger", description: "Evidence. Medicine. Law. Reconstruction.", href: "https://github.com/RyanrealAF/The_Mosaic_Theory" }
 ];
 
 export default function App() {
@@ -36,7 +36,7 @@ export default function App() {
                 <h2>{project.name}</h2>
                 <p>{project.description}</p>
               </span>
-              <span className="route mono">{project.href}</span>
+              <span className="route mono">{project.href.replace("https://", "")}</span>
             </a>
           ))}
         </section>
