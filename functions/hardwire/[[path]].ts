@@ -8,6 +8,9 @@ function rewriteHtml(html: string) {
 
 export async function onRequest(context: any) {
   const incoming = new URL(context.request.url);
+  if (incoming.pathname === "/hardwire") {
+    return Response.redirect(new URL("/hardwire/", incoming), 308);
+  }
   const upstreamPath = incoming.pathname.replace(/^\/hardwire/, "") || "/";
   const upstream = new URL(upstreamPath, ORIGIN);
   upstream.search = incoming.search;
