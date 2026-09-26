@@ -22,12 +22,12 @@ export async function onRequest(context: any) {
   if (contentType.includes("text/html")) {
     let html = await response.text();
 
+    // The upstream app was built for root deployment. Rebase root-relative
+    // document resources and navigation into /hardwire/.
     html = html
-      .replaceAll('href="/manifest.json"', 'href="/hardwire/manifest.json"')
-      .replaceAll('href="/icon-192.png"', 'href="/hardwire/icon-192.png"')
-      .replaceAll('href="/icons/icon.svg"', 'href="/hardwire/icons/icon.svg"')
-      .replaceAll('src="/sw.js"', 'src="/hardwire/sw.js"')
-      .replaceAll("navigator.serviceWorker.register('/sw.js')", "navigator.serviceWorker.register('/hardwire/sw.js')");
+      .replace(/(src|href)="\/(?!hardwire\/)([^"]+)"/g, '$1="/hardwire/$2"')
+      .replace(/url\(\/(?!hardwire\/)/g, 'url(/hardwire/')
+      .replaceAll("navigator.serviceWorker.register('/hardwire/sw.js')", "navigator.serviceWorker.register('/hardwire/sw.js')");
 
     return new Response(html, {
       status: response.status,
