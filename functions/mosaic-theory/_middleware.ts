@@ -23,6 +23,7 @@ export async function onRequest(context: any) {
     let html = await response.text();
 
     html = html
+      .replace(/(src|href)="\/assets\//g, '$1="/mosaic-theory/assets/')
       .replaceAll('src="/src/main.tsx"', 'src="/mosaic-theory/src/main.tsx"')
       .replaceAll('href="/manifest.json"', 'href="/mosaic-theory/manifest.json"')
       .replaceAll('href="/icon-192.png"', 'href="/mosaic-theory/icon-192.png"')
