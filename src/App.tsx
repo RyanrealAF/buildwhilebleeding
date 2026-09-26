@@ -1,9 +1,9 @@
 const projects = [
-  { number: "01", name: "Hardwire", category: "System", description: "Music theory for the streets.", href: "/hardwire" },
+  { number: "01", name: "Hardwire", category: "System", description: "Music theory for the streets.", href: "https://hardwire.buildwhilebleeding.com" },
   { number: "02", name: "Seuss", category: "Library", description: "Rhythm. Meter. Rhyme. Transfer.", href: "/library/seuss" },
-  { number: "03", name: "The Leak Report", category: "Field", description: "Listening beneath the words.", href: "/the-leak-report" },
-  { number: "04", name: "Cartography", category: "Archive", description: "Songs, narratives, PSAs, documents.", href: "/cartography" },
-  { number: "05", name: "The Mosaic Theory", category: "Ledger", description: "Evidence. Medicine. Law. Reconstruction.", href: "/mosaic-theory" }
+  { number: "03", name: "The Leak Report", category: "Field", description: "Listening beneath the words.", href: "https://leakreport.buildwhilebleeding.com" },
+  { number: "04", name: "Cartography", category: "Archive", description: "Songs, narratives, PSAs, documents.", href: "https://cartography.buildwhilebleeding.com" },
+  { number: "05", name: "The Mosaic Theory", category: "Ledger", description: "Evidence. Medicine. Law. Reconstruction.", href: "https://mosaic.buildwhilebleeding.com" }
 ];
 
 export default function App() {
@@ -36,7 +36,7 @@ export default function App() {
                 <h2>{project.name}</h2>
                 <p>{project.description}</p>
               </span>
-              <span className="route mono">{`buildwhilebleeding.com${project.href}`}</span>
+              <span className="route mono">{project.href.replace("https://", "")}</span>
             </a>
           ))}
         </section>
