@@ -21,7 +21,6 @@ export default function App() {
           <p className="tag mono">Tools. Theory. Field reports. Maps.</p>
           <h1>Build what<br />survives.</h1>
           <p>Independent systems, research, writing, music, and fieldwork built <em>outside the clean room.</em></p>
-          <div className="cta"><a href="#archive">[ Enter the Archive ]</a></div>
         </section>
 
         <section className="index-intro">
