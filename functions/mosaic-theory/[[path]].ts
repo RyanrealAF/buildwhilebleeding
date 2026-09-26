@@ -8,6 +8,9 @@ function rewriteHtml(html: string) {
 
 export async function onRequest(context: any) {
   const incoming = new URL(context.request.url);
+  if (incoming.pathname === "/mosaic-theory") {
+    return Response.redirect(new URL("/mosaic-theory/", incoming), 308);
+  }
   const upstreamPath = incoming.pathname.replace(/^\/mosaic-theory/, "") || "/";
   const upstream = new URL(upstreamPath, ORIGIN);
   upstream.search = incoming.search;
