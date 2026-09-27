@@ -15,7 +15,7 @@ const PROJECTS = {
   "/theleakreport":   "https://the-leak-report.pages.dev",
   "/cartography":     "https://cartography.pages.dev",
   "/mosaic":          "https://the-mosaic-theory.pages.dev",
-  "/library/seuss":   "https://the-seuss-library.pages.dev",
+  "/library/seuss":   "https://raw.githack.com/RyanrealAF/Seuss/main/index.html",
 };
 
 // ── Paths that require a trailing slash for relative asset resolution ───

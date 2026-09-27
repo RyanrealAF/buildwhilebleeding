@@ -112,10 +112,8 @@ export default function App() {
               
               <a 
                 className="body" 
-                href={project.liveUrl} 
-                target="_blank" 
-                rel="noopener noreferrer"
-                title={`Open ${project.name} (${project.liveUrl})`}
+                href={project.route}
+                title={`Open ${project.name} (${project.route})`}
               >
                 <span className="cat mono">{project.category}</span>
                 <h2>
@@ -127,11 +125,9 @@ export default function App() {
 
               <div className="actions">
                 <a
-                  href={project.liveUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
+                  href={project.route}
                   className="action-btn live-btn mono"
-                  title={`Launch ${project.name} in new tab`}
+                  title={`Launch ${project.name}`}
                 >
                   <Globe size={13} />
                   <span>Launch</span>
