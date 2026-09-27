@@ -1,7 +1,11 @@
 const PROJECTS = {
   "/hardwire": "https://the-hardwire-method.pages.dev",
+  "/the-leak-report": "https://the-leak-report.pages.dev",
+  "/theleakreport": "https://the-leak-report.pages.dev",
+  "/cartography": "https://cartography.pages.dev",
   "/mosaic": "https://the-mosaic-theory.pages.dev",
   "/mosaic-theory": "https://the-mosaic-theory.pages.dev",
+  "/library/seuss": "https://raw.githack.com/RyanrealAF/Seuss/main",
 };
 
 function matchProject(pathname) {
@@ -40,11 +44,9 @@ function rewriteManifest(text, prefix) {
   }
 }
 
-const NOOP_SW = `
-self.addEventListener("install", event => event.waitUntil(self.skipWaiting()));
+const NOOP_SW = `self.addEventListener("install", event => event.waitUntil(self.skipWaiting()));
 self.addEventListener("activate", event => event.waitUntil(self.clients.claim()));
-self.addEventListener("fetch", event => event.respondWith(fetch(event.request)));
-`;
+self.addEventListener("fetch", event => event.respondWith(fetch(event.request)));`;
 
 async function proxy(request, prefix, origin) {
   const incoming = new URL(request.url);
@@ -65,7 +67,6 @@ async function proxy(request, prefix, origin) {
       const localPath = prefix + (target.pathname === "/" ? "/" : target.pathname);
       const local = new URL(localPath, incoming);
       local.search = target.search;
-
       return new Response(null, {
         status: response.status,
         headers: {
@@ -75,8 +76,6 @@ async function proxy(request, prefix, origin) {
       });
     }
 
-    // Some Pages deployments redirect their project origin to a canonical
-    // BWB URL. Keep the visitor inside the project namespace.
     if (target.hostname === "buildwhilebleeding.com" || target.hostname === "www.buildwhilebleeding.com") {
       const local = new URL(prefix + "/", incoming);
       return new Response(null, {
@@ -98,7 +97,7 @@ async function proxy(request, prefix, origin) {
 
   const contentType = headers.get("content-type") || "";
 
-  if (prefix === "/hardwire" && upstreamPath === "/sw.js") {
+  if (upstreamPath === "/sw.js") {
     headers.set("content-type", "application/javascript; charset=UTF-8");
     headers.set("cache-control", "no-store");
     return new Response(NOOP_SW, {
