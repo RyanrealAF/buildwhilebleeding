@@ -1,145 +1,44 @@
-const PROJECTS = {
-  "/hardwire": "https://the-hardwire-method.pages.dev",
-  "/mosaic": "https://the-mosaic-theory.pages.dev",
-  "/mosaic-theory": "https://the-mosaic-theory.pages.dev",
+/**
+ * Pages Functions worker for buildwhilebleeding.com
+ *
+ * 1. Proxies subpaths (/hardwire, /mosaic-theory, etc.) to the
+ *    corresponding Pages projects.
+ * 2. Serves static assets for everything else.
+ * 3. Falls back to index.html for unknown paths so the SPA
+ *    router can handle client-side routes.
+ */
+
+const PROJECT_MAP = {
+  '/hardwire': 'the-hardwire-method.pages.dev',
+  '/mosaic-theory': 'the-mosaic-theory.pages.dev',
+  '/leak-report': 'the-leak-report.pages.dev',
+  '/cartography': 'cartography.pages.dev',
 };
-
-function matchProject(pathname) {
-  for (const [prefix, origin] of Object.entries(PROJECTS)) {
-    if (pathname === prefix || pathname.startsWith(prefix + "/")) {
-      return { prefix, origin };
-    }
-  }
-  return null;
-}
-
-function rewriteRootPaths(text, prefix) {
-  return text
-    .replace(/(src|href|action)=(["'])\/(?!\/)([^"']*)\2/gi,
-      (_, attr, quote, path) => `${attr}=${quote}${prefix}/${path}${quote}`)
-    .replace(/url\(\s*(['"]?)\/(?!\/)/gi,
-      (_, quote) => `url(${quote}${prefix}/`)
-    );
-}
-
-function rewriteManifest(text, prefix) {
-  try {
-    const manifest = JSON.parse(text);
-    const rewrite = (value) =>
-      typeof value === "string" && value.startsWith("/") && !value.startsWith("//")
-        ? prefix + value
-        : value;
-
-    if (Array.isArray(manifest.icons)) {
-      manifest.icons = manifest.icons.map(icon => ({ ...icon, src: rewrite(icon.src) }));
-    }
-    if (typeof manifest.start_url === "string") manifest.start_url = rewrite(manifest.start_url);
-    if (typeof manifest.scope === "string") manifest.scope = rewrite(manifest.scope);
-    return JSON.stringify(manifest);
-  } catch {
-    return text;
-  }
-}
-
-function rewriteServiceWorker(text, prefix) {
-  return text.replace(/(["'])\/(?!\/)/g, (_, quote) => quote + prefix + "/");
-}
-
-async function proxy(request, prefix, origin) {
-  const incoming = new URL(request.url);
-  const upstreamPath = incoming.pathname.slice(prefix.length) || "/";
-  const upstream = new URL(upstreamPath, origin);
-  upstream.search = incoming.search;
-
-  const upstreamRequest = new Request(upstream.toString(), request);
-  const response = await fetch(upstreamRequest, { redirect: "manual" });
-
-  const location = response.headers.get("location");
-  if (location) {
-    const target = new URL(location, upstream);
-    const sameOrigin = target.origin === new URL(origin).origin;
-
-    if (sameOrigin) {
-      const targetPath = target.pathname === "/" ? "/" : target.pathname;
-      const localPath = targetPath === "/"
-        ? prefix + "/"
-        : prefix + targetPath;
-
-      const local = new URL(localPath, incoming);
-      local.search = target.search;
-
-      return new Response(null, {
-        status: response.status,
-        headers: {
-          "location": local.toString(),
-          "cache-control": "no-store",
-        },
-      });
-    }
-  }
-
-  const headers = new Headers(response.headers);
-  headers.delete("content-encoding");
-  headers.delete("content-length");
-  headers.delete("content-security-policy");
-  headers.delete("location");
-  headers.set("x-bwb-proxy", prefix);
-
-  const contentType = headers.get("content-type") || "";
-
-  if (contentType.includes("text/html")) {
-    return new Response(rewriteRootPaths(await response.text(), prefix), {
-      status: response.status,
-      statusText: response.statusText,
-      headers,
-    });
-  }
-
-  if (contentType.includes("manifest+json") || upstreamPath.endsWith("/manifest.json")) {
-    return new Response(rewriteManifest(await response.text(), prefix), {
-      status: response.status,
-      statusText: response.statusText,
-      headers,
-    });
-  }
-
-  if (upstreamPath.endsWith("/sw.js") && contentType.includes("javascript")) {
-    return new Response(rewriteServiceWorker(await response.text(), prefix), {
-      status: response.status,
-      statusText: response.statusText,
-      headers,
-    });
-  }
-
-  if (contentType.includes("text/css")) {
-    return new Response(
-      (await response.text()).replace(
-        /url\(\s*(['"]?)\/(?!\/)/g,
-        (_, quote) => `url(${quote}${prefix}/`
-      ),
-      { status: response.status, statusText: response.statusText, headers }
-    );
-  }
-
-  return new Response(response.body, {
-    status: response.status,
-    statusText: response.statusText,
-    headers,
-  });
-}
 
 export default {
   async fetch(request, env) {
     const url = new URL(request.url);
-    const project = matchProject(url.pathname);
+    const path = url.pathname;
 
-    if (project) {
-      if (url.pathname === project.prefix) {
-        return Response.redirect(new URL(project.prefix + "/", url), 308);
+    // Check if path matches a mapped subpath prefix
+    for (const [prefix, target] of Object.entries(PROJECT_MAP)) {
+      if (path === prefix || path.startsWith(prefix + '/')) {
+        const subPath = path.slice(prefix.length) || '/';
+        const targetUrl = `https://${target}${subPath}${url.search}`;
+        const proxyRequest = new Request(targetUrl, request);
+        return fetch(proxyRequest);
       }
-      return proxy(request, project.prefix, project.origin);
     }
 
-    return env.ASSETS.fetch(request);
-  },
+    // Try to serve static asset (CSS, JS, images, index.html, etc.)
+    const assetResponse = await env.ASSETS.fetch(request);
+
+    // If asset not found, serve index.html so the SPA router can handle it
+    if (assetResponse.status === 404) {
+      const indexRequest = new Request(new URL('/index.html', url), request);
+      return env.ASSETS.fetch(indexRequest);
+    }
+
+    return assetResponse;
+  }
 };
