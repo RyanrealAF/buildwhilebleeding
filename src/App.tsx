@@ -60,7 +60,7 @@ export const projects: Project[] = [
     description: "Evidence. Medicine. Law. Reconstruction.",
     route: "/mosaic",
     liveUrl: "https://the-mosaic-theory.pages.dev",
-    repoUrl: "https://github.com/RyanrealAF/Loadbearingman",
+    repoUrl: "https://github.com/RyanrealAF/The_Mosaic_Theory",
     details: "Somatic damage, constitutional injury under DSA, and forensic reconstruction ledger."
   }
 ];
