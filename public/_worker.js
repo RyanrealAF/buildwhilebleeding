@@ -15,6 +15,7 @@ const PROJECTS = {
   "/theleakreport":   "https://the-leak-report.pages.dev",
   "/cartography":     "https://cartography.pages.dev",
   "/mosaic":          "https://the-mosaic-theory.pages.dev",
+  "/mosaic-theory":    "https://the-mosaic-theory.pages.dev",
   "/library/seuss":   "https://the-seuss-library.pages.dev",
 };
 
@@ -24,6 +25,7 @@ const TRAILING_SLASH_REQUIRED = [
   "/the-leak-report",
   "/theleakreport",
   "/mosaic",
+  "/mosaic-theory",
   "/library/seuss",
   "/cartography",
 ];
