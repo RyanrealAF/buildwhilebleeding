@@ -1,156 +1,127 @@
+/**
+ * BuildWhileBleeding — Master Umbrella _worker.js
+ * Cloudflare Pages Advanced Mode (public/_worker.js)
+ *
+ * Acts as the front-door reverse proxy for all sub-territories.
+ * Routes subpaths to their respective .pages.dev deployments,
+ * enforces trailing-slash redirects for relative-asset safety,
+ * and intercepts cross-project service worker registrations.
+ */
+
+// ── Project routing table ──────────────────────────────────────────────
 const PROJECTS = {
-  "/hardwire": "https://the-hardwire-method.pages.dev",
+  "/hardwire":        "https://the-hardwire-method.pages.dev",
   "/the-leak-report": "https://the-leak-report.pages.dev",
-  "/theleakreport": "https://the-leak-report.pages.dev",
-  "/cartography": "https://cartography.pages.dev",
-  "/mosaic": "https://the-mosaic-theory.pages.dev",
-  "/mosaic-theory": "https://the-mosaic-theory.pages.dev",
-  "/library/seuss": "https://raw.githack.com/RyanrealAF/Seuss/main",
+  "/theleakreport":   "https://the-leak-report.pages.dev",
+  "/cartography":     "https://cartography.pages.dev",
+  "/mosaic":          "https://the-mosaic-theory.pages.dev",
+  "/library/seuss":   "https://the-seuss-library.pages.dev",
 };
 
-function matchProject(pathname) {
-  for (const [prefix, origin] of Object.entries(PROJECTS)) {
+// ── Paths that require a trailing slash for relative asset resolution ───
+const TRAILING_SLASH_REQUIRED = [
+  "/hardwire",
+  "/the-leak-report",
+  "/theleakreport",
+  "/mosaic",
+  "/library/seuss",
+  "/cartography",
+];
+
+// ── Helper: find the matching project prefix for a pathname ─────────────
+function findProject(pathname) {
+  const sortedKeys = Object.keys(PROJECTS).sort((a, b) => b.length - a.length);
+  for (const prefix of sortedKeys) {
     if (pathname === prefix || pathname.startsWith(prefix + "/")) {
-      return { prefix, origin };
+      return prefix;
     }
   }
   return null;
 }
 
-function rewriteRootPaths(text, prefix) {
-  return text
-    .replace(/(src|href|action)=(["'])\/(?!\/)([^"']*)\2/gi,
-      (_, attr, quote, path) => `${attr}=${quote}${prefix}/${path}${quote}`)
-    .replace(/url\(\s*(['"]?)\/(?!\/)/gi,
-      (_, quote) => `url(${quote}${prefix}/`);
-}
-
-function rewriteManifest(text, prefix) {
-  try {
-    const manifest = JSON.parse(text);
-    const rewrite = value =>
-      typeof value === "string" && value.startsWith("/") && !value.startsWith("//")
-        ? prefix + value
-        : value;
-
-    if (Array.isArray(manifest.icons)) {
-      manifest.icons = manifest.icons.map(icon => ({ ...icon, src: rewrite(icon.src) }));
-    }
-    if (typeof manifest.start_url === "string") manifest.start_url = rewrite(manifest.start_url);
-    if (typeof manifest.scope === "string") manifest.scope = rewrite(manifest.scope);
-    return JSON.stringify(manifest);
-  } catch {
-    return text;
-  }
-}
-
-const NOOP_SW = `self.addEventListener("install", event => event.waitUntil(self.skipWaiting()));
-self.addEventListener("activate", event => event.waitUntil(self.clients.claim()));
-self.addEventListener("fetch", event => event.respondWith(fetch(event.request)));`;
-
-async function proxy(request, prefix, origin) {
-  const incoming = new URL(request.url);
-  const upstreamPath = incoming.pathname.slice(prefix.length) || "/";
-  const upstream = new URL(upstreamPath, origin);
-  upstream.search = incoming.search;
-
-  const response = await fetch(new Request(upstream.toString(), request), {
-    redirect: "manual",
-  });
-
-  const location = response.headers.get("location");
-  if (location) {
-    const target = new URL(location, upstream);
-    const upstreamOrigin = new URL(origin).origin;
-
-    if (target.origin === upstreamOrigin) {
-      const localPath = prefix + (target.pathname === "/" ? "/" : target.pathname);
-      const local = new URL(localPath, incoming);
-      local.search = target.search;
-      return new Response(null, {
-        status: response.status,
-        headers: {
-          "location": local.toString(),
-          "cache-control": "no-store",
-        },
-      });
-    }
-
-    if (target.hostname === "buildwhilebleeding.com" || target.hostname === "www.buildwhilebleeding.com") {
-      const local = new URL(prefix + "/", incoming);
-      return new Response(null, {
-        status: response.status,
-        headers: {
-          "location": local.toString(),
-          "cache-control": "no-store",
-        },
-      });
+// ── Helper: check if pathname needs trailing slash redirect ────────────
+function needsTrailingSlash(pathname) {
+  for (const prefix of TRAILING_SLASH_REQUIRED) {
+    if (pathname === prefix) return prefix + "/";
+    if (pathname.startsWith(prefix + "/")) {
+      const subPath = pathname.slice(prefix.length + 1);
+      const lastSegment = subPath.split("/").pop();
+      if (lastSegment && !lastSegment.includes(".") && !pathname.endsWith("/")) {
+        return pathname + "/";
+      }
     }
   }
-
-  const headers = new Headers(response.headers);
-  headers.delete("content-encoding");
-  headers.delete("content-length");
-  headers.delete("content-security-policy");
-  headers.delete("location");
-  headers.set("x-bwb-proxy", prefix);
-
-  const contentType = headers.get("content-type") || "";
-
-  if (upstreamPath === "/sw.js") {
-    headers.set("content-type", "application/javascript; charset=UTF-8");
-    headers.set("cache-control", "no-store");
-    return new Response(NOOP_SW, {
-      status: 200,
-      headers,
-    });
-  }
-
-  if (contentType.includes("text/html")) {
-    return new Response(rewriteRootPaths(await response.text(), prefix), {
-      status: response.status,
-      statusText: response.statusText,
-      headers,
-    });
-  }
-
-  if (contentType.includes("manifest+json") || upstreamPath.endsWith("/manifest.json")) {
-    return new Response(rewriteManifest(await response.text(), prefix), {
-      status: response.status,
-      statusText: response.statusText,
-      headers,
-    });
-  }
-
-  if (contentType.includes("text/css")) {
-    return new Response(
-      (await response.text()).replace(
-        /url\(\s*(['"]?)\/(?!\/)/g,
-        (_, quote) => `url(${quote}${prefix}/`
-      ),
-      { status: response.status, statusText: response.statusText, headers }
-    );
-  }
-
-  return new Response(response.body, {
-    status: response.status,
-    statusText: response.statusText,
-    headers,
-  });
+  return null;
 }
 
+// ── Main fetch handler ─────────────────────────────────────────────────
 export default {
   async fetch(request, env) {
     const url = new URL(request.url);
-    const project = matchProject(url.pathname);
+    const pathname = url.pathname;
 
-    if (project) {
-      if (url.pathname === project.prefix) {
-        return Response.redirect(new URL(project.prefix + "/", url), 308);
-      }
-      return proxy(request, project.prefix, project.origin);
+    // ── 1. Service Worker no-op interceptor ─────────────────────────────
+    if (pathname.endsWith("/sw.js")) {
+      return new Response(
+        `/* no-op service worker */
+        self.addEventListener("install", (e) => self.skipWaiting());
+        self.addEventListener("activate", (e) => {
+          self.registration.unregister();
+          e.waitUntil(clients.claim());
+        });`,
+        {
+          status: 200,
+          headers: { "Content-Type": "application/javascript; charset=utf-8",
+                     "Cache-Control": "no-store, no-cache, must-revalidate",
+                     "Service-Worker-Allowed": "/" },
+        }
+      );
     }
 
+    // ── 2. Trailing-slash enforcement (308 permanent redirect) ─────────
+    const slashRedirect = needsTrailingSlash(pathname);
+    if (slashRedirect) {
+      const redirectUrl = new URL(slashRedirect, url.origin);
+      redirectUrl.search = url.search;
+      return Response.redirect(redirectUrl.toString(), 308);
+    }
+
+    // ── 3. Project reverse-proxy routing ───────────────────────────────
+    const projectPrefix = findProject(pathname);
+    if (projectPrefix) {
+      const upstream = PROJECTS[projectPrefix];
+      const subPath = pathname.slice(projectPrefix.length) || "/";
+      const proxyUrl = new URL(subPath, upstream);
+      proxyUrl.search = url.search;
+
+      const proxyRequest = new Request(proxyUrl.toString(), {
+        method: request.method,
+        headers: request.headers,
+        body: request.method === "GET" || request.method === "HEAD" ? undefined : request.body,
+        redirect: "manual",
+      });
+
+      const response = await fetch(proxyRequest);
+
+      const newHeaders = new Headers(response.headers);
+      const location = newHeaders.get("Location");
+      if (location) {
+        try {
+          const locUrl = new URL(location, upstream);
+          if (locUrl.origin === new URL(upstream).origin) {
+            newHeaders.set("Location", projectPrefix + locUrl.pathname + locUrl.search + locUrl.hash);
+          }
+        } catch (_) {}
+      }
+
+      return new Response(response.body, {
+        status: response.status,
+        statusText: response.statusText,
+        headers: newHeaders,
+      });
+    }
+
+    // ── 4. Fallback: serve static assets from the Pages project itself ──
     return env.ASSETS.fetch(request);
   },
 };
