@@ -19,7 +19,7 @@ export const projects: Project[] = [
     category: "System",
     description: "Music theory for the streets.",
     route: "/hardwire",
-    liveUrl: "https://the-hardwire-method.pages.dev",
+    liveUrl: "https://buildwhilebleeding.com/hardwire/",
     repoUrl: "https://github.com/RyanrealAF/Hardwire",
     details: "Zero-fluff street music theory curriculum, interactive MIDI workbench, and textbook distribution hub."
   },
@@ -29,7 +29,7 @@ export const projects: Project[] = [
     category: "Library",
     description: "Rhythm. Meter. Rhyme. Transfer.",
     route: "/library/seuss",
-    liveUrl: "https://raw.githack.com/RyanrealAF/Seuss/main/index.html",
+    liveUrl: "https://buildwhilebleeding.com/library/seuss/",
     repoUrl: "https://github.com/RyanrealAF/Seuss",
     details: "Formal theory library dissecting Dr. Seuss meter schemes, hip-hop rhythm cadences, and syllable transfer."
   },
@@ -39,7 +39,7 @@ export const projects: Project[] = [
     category: "Field",
     description: "Listening beneath the words.",
     route: "/the-leak-report",
-    liveUrl: "https://the-leak-report.pages.dev",
+    liveUrl: "https://buildwhilebleeding.com/the-leak-report/",
     repoUrl: "https://github.com/RyanrealAF/Theleakreport",
     details: "Educational field manual, tactical discourse analysis, forensic linguistics, and listening beneath the words."
   },
@@ -49,7 +49,7 @@ export const projects: Project[] = [
     category: "Archive",
     description: "Songs, narratives, PSAs, documents.",
     route: "/cartography",
-    liveUrl: "https://cartography.pages.dev",
+    liveUrl: "https://buildwhilebleeding.com/cartography/",
     repoUrl: "https://github.com/RyanrealAF/Cartography",
     details: "Connected bodies of work, creative lineages, artifacts, songs, and field records outside the clean room."
   },
@@ -59,7 +59,7 @@ export const projects: Project[] = [
     category: "Ledger",
     description: "Evidence. Medicine. Law. Reconstruction.",
     route: "/mosaic",
-    liveUrl: "https://the-mosaic-theory.pages.dev",
+    liveUrl: "https://buildwhilebleeding.com/mosaic/",
     repoUrl: "https://github.com/RyanrealAF/The_Mosaic_Theory",
     details: "Somatic damage, constitutional injury under DSA, and forensic reconstruction ledger."
   }
