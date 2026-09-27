@@ -1,9 +1,12 @@
 /**
- * Pages Functions worker for buildwhilebleeding.com
+ * Pages advanced-mode worker for buildwhilebleeding.com
+ *
+ * Place this file as public/_worker.js — Vite copies it to dist/_worker.js,
+ * and Cloudflare Pages picks it up as the advanced-mode worker.
  *
  * 1. Proxies subpaths (/hardwire, /mosaic-theory, etc.) to the
  *    corresponding Pages projects.
- * 2. Serves static assets for everything else.
+ * 2. Serves static assets for everything else via env.ASSETS.
  * 3. Falls back to index.html for unknown paths so the SPA
  *    router can handle client-side routes.
  */
