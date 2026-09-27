@@ -1,0 +1,6 @@
+{
+  "name": "Build While Bleeding",
+  "description": "Build While Bleeding. Tools. Theory. Field reports. Maps.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
