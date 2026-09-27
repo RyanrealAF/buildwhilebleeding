@@ -110,8 +110,19 @@ export default {
       if (location) {
         try {
           const locUrl = new URL(location, upstream);
-          if (locUrl.origin === new URL(upstream).origin) {
-            newHeaders.set("Location", projectPrefix + locUrl.pathname + locUrl.search + locUrl.hash);
+          const upstreamOrigin = new URL(upstream).origin;
+          const isUpstreamRedirect =
+            locUrl.origin === upstreamOrigin ||
+            locUrl.hostname.endsWith(".pages.dev") ||
+            locUrl.hostname === "buildwhilebleeding.com" ||
+            locUrl.hostname === "www.buildwhilebleeding.com";
+
+          if (isUpstreamRedirect) {
+            const localPath = locUrl.pathname === "/" ? projectPrefix + "/" : projectPrefix + locUrl.pathname;
+            const localUrl = new URL(localPath, url.origin);
+            localUrl.search = locUrl.search;
+            localUrl.hash = locUrl.hash;
+            newHeaders.set("Location", localUrl.toString());
           }
         } catch (_) {}
       }
