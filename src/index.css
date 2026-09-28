@@ -42,6 +42,22 @@ nav a:hover{color:var(--bronze);border-color:var(--bronze)}
   margin:0 0 1rem;color:var(--highlight);text-transform:uppercase;
   opacity:0;animation:rise .7s ease-out .25s forwards
 }
+.bleeding-word{
+  position:relative;display:inline-block;color:var(--rust);
+  text-shadow:0 1px 0 #7f2e23,0 2px 0 rgba(158,63,47,.35)
+}
+.bleed-drip{
+  position:absolute;top:82%;display:block;width:.09em;background:var(--rust);
+  border-radius:0 0 .12em .12em;transform-origin:top center;
+  box-shadow:0 .03em .06em rgba(0,0,0,.45)
+}
+.drip-one{left:17%;height:.34em;transform:rotate(2deg)}
+.drip-two{left:57%;height:.58em;transform:rotate(-1deg)}
+.drip-three{left:84%;height:.22em;transform:rotate(2deg)}
+.bleed-drip::after{
+  content:'';position:absolute;bottom:-.08em;left:50%;width:.16em;height:.16em;
+  transform:translateX(-50%);background:var(--rust);border-radius:50%
+}
 .hero>p:not(.tag){max-width:46ch;font-size:1rem;line-height:1.45;color:var(--paper);opacity:0;animation:rise .7s ease-out .4s forwards}
 .hero p em{color:var(--bronze);font-style:normal}
 .cta{margin-top:2.25rem;opacity:0;animation:rise .7s ease-out .55s forwards}
