@@ -121,7 +121,6 @@ export default function App() {
                 </h2>
                 <p>{project.description}</p>
               </a>
-              <span className="route mono">{project.route}</span>
             </div>
           ))}
         </section>
