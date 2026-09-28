@@ -89,7 +89,7 @@ export default function App() {
       <main className="wrap">
         <section className="hero">
           <p className="tag mono">Tools. Theory. Field reports. Maps.</p>
-          <h1>Build While<br />Bleeding.</h1>
+          <h1>Build While<br /><span className="bleeding-word">Bleeding<span className="bleed-drip drip-one"></span><span className="bleed-drip drip-two"></span><span className="bleed-drip drip-three"></span></span>.</h1>
           <p>
             Independent systems, research, writing, music, and fieldwork built <em>outside the clean room.</em>
           </p>
