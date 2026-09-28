@@ -65,7 +65,7 @@ nav a:hover{color:var(--bronze);border-color:var(--bronze)}
 @keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
 
 .archive .entry{
-  display:grid;grid-template-columns:3rem 1fr auto;align-items:center;gap:1.5rem;
+  display:grid;grid-template-columns:3rem 1fr;align-items:center;gap:1.5rem;
   padding:1.1rem 0;border-top:1px solid var(--concrete);
   transition:background .2s;position:relative
 }
@@ -75,7 +75,7 @@ nav a:hover{color:var(--bronze);border-color:var(--bronze)}
 .entry .num{font-family:'IBM Plex Mono',monospace;font-size:1.15rem;color:var(--concrete);font-weight:500;transition:color .2s}
 .archive .entry:hover .num{color:var(--bronze)}
 
-.entry .body{display:block;text-decoration:none;cursor:pointer}
+.entry .body{display:block;text-decoration:none;cursor:pointer;text-align:center}
 .entry .body .cat{font-size:.7rem;text-transform:uppercase;color:var(--rust);display:block;margin-bottom:.2rem}
 .entry .body h2{
   font-family:'Big Shoulders Display',sans-serif;font-weight:700;text-transform:uppercase;
@@ -100,7 +100,6 @@ nav a:hover{color:var(--bronze);border-color:var(--bronze)}
 .action-btn.live-btn{border-color:var(--rust);color:var(--highlight);background:rgba(158,63,47,.15)}
 .action-btn.live-btn:hover{background:var(--rust);color:#fff}
 .action-btn.repo-btn{padding:.35rem .5rem}
-.entry .route{font-size:.75rem;color:var(--bronze);white-space:nowrap;opacity:.8;margin-left:.35rem}
 
 /* Modal dialog */
 .modal-backdrop{
@@ -146,7 +145,6 @@ footer .row{display:flex;justify-content:space-between;align-items:center;flex-w
 @media (max-width:640px){
   .archive .entry{grid-template-columns:1fr;gap:.8rem;padding:1.25rem 0}
   .entry .num{font-size:1.1rem}
-  .entry .actions{justify-self:start;flex-wrap:wrap}
   .entry .route{margin-left:0}
   .modal-actions{flex-direction:column}
   .cta-primary, .cta-secondary{width:100%}
