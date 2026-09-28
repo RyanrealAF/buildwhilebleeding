@@ -20,7 +20,7 @@ export const projects: Project[] = [
     route: "/hardwire",
     liveUrl: "https://buildwhilebleeding.com/hardwire/",
     repoUrl: "https://github.com/RyanrealAF/Hardwire",
-    details: "Zero-fluff street music theory curriculum, interactive MIDI workbench, and textbook distribution hub."
+    details: "A street-level music theory system built around FEEL → MAP → CONTROL. It translates rhythm, meter, harmony, MIDI, and production concepts into practical tools for self-taught musicians without requiring traditional notation or conservatory language."
   },
   {
     number: "02",
@@ -30,7 +30,7 @@ export const projects: Project[] = [
     route: "/library/seuss",
     liveUrl: "https://buildwhilebleeding.com/library/seuss/",
     repoUrl: "https://github.com/RyanrealAF/Seuss",
-    details: "Formal theory library dissecting Dr. Seuss meter schemes, hip-hop rhythm cadences, and syllable transfer."
+    details: "A formal rhythm and meter library that uses Dr. Seuss as a laboratory for understanding syllable count, stress, rhyme, cadence, and transfer. The goal is to make the mechanics underneath infectious writing visible and usable."
   },
   {
     number: "03",
@@ -40,7 +40,7 @@ export const projects: Project[] = [
     route: "/the-leak-report",
     liveUrl: "https://buildwhilebleeding.com/the-leak-report/",
     repoUrl: "https://github.com/RyanrealAF/Theleakreport",
-    details: "Educational field manual, tactical discourse analysis, forensic linguistics, and listening beneath the words."
+    details: "A field manual for reading what language reveals beyond its literal content. It brings discourse analysis, forensic linguistics, cognitive load, social performance, and close listening into one practical framework for examining how people communicate under pressure."
   },
   {
     number: "04",
@@ -50,7 +50,7 @@ export const projects: Project[] = [
     route: "/cartography",
     liveUrl: "https://buildwhilebleeding.com/cartography/",
     repoUrl: "https://github.com/RyanrealAF/Cartography",
-    details: "Connected bodies of work, creative lineages, artifacts, songs, and field records outside the clean room."
+    details: "An archive of connected creative work: songs, narratives, public-service pieces, documents, field records, and the ideas that connect them. It preserves the work as a living record rather than separating every artifact into a clean little box."
   },
   {
     number: "05",
@@ -60,7 +60,7 @@ export const projects: Project[] = [
     route: "/mosaic",
     liveUrl: "https://buildwhilebleeding.com/mosaic/",
     repoUrl: "https://github.com/RyanrealAF/The_Mosaic_Theory",
-    details: "Somatic damage, constitutional injury under DSA, and forensic reconstruction ledger."
+    details: "A reconstruction ledger for complex evidence. It examines physical injury, constitutional questions, medical documentation, legal records, timelines, and corroborating fragments as connected pieces that can be assembled into a larger factual picture."
   }
 ];
 
@@ -117,9 +117,11 @@ export default function App() {
                 <span className="cat mono">{project.category}</span>
                 <h2>
                   {project.name}
-                  <ArrowUpRight size={16} className="title-arrow" />
+                  <ArrowUpRight size={20} className="title-arrow" />
                 </h2>
-                <p>{project.description}</p>
+                <p className="description">{project.description}</p>
+                <p className="details">{project.details}</p>
+                <span className="visit-link mono">ENTER PROJECT <ArrowUpRight size={14} /></span>
               </a>
             </div>
           ))}
