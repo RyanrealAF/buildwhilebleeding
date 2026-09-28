@@ -1,5 +1,4 @@
-import { useState } from "react";
-import { ExternalLink, Code2, Globe, X, ArrowUpRight } from "lucide-react";
+import { ArrowUpRight } from "lucide-react";
 
 export interface Project {
   number: string;
@@ -66,8 +65,6 @@ export const projects: Project[] = [
 ];
 
 export default function App() {
-  const [activeModal, setActiveModal] = useState<Project | null>(null);
-
   return (
     <>
       <header>
@@ -124,115 +121,10 @@ export default function App() {
                 </h2>
                 <p>{project.description}</p>
               </a>
-
-              <div className="actions">
-                <a
-                  href={project.liveUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="action-btn live-btn mono"
-                  title={`Launch ${project.name} in new tab`}
-                >
-                  <Globe size={13} />
-                  <span>Launch</span>
-                </a>
-
-                <button
-                  type="button"
-                  onClick={() => setActiveModal(project)}
-                  className="action-btn preview-btn mono"
-                  title="Inspect project details"
-                >
-                  <span>Info</span>
-                </button>
-
-                <a
-                  href={project.repoUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="action-btn repo-btn mono"
-                  title="View repository on GitHub"
-                >
-                  <Code2 size={13} />
-                </a>
-
-                <span className="route mono">{project.route}</span>
-              </div>
+              <span className="route mono">{project.route}</span>
             </div>
           ))}
         </section>
-
-        {activeModal && (
-          <div className="modal-backdrop" onClick={() => setActiveModal(null)} role="dialog" aria-modal="true">
-            <div className="modal-content" onClick={(e) => e.stopPropagation()}>
-              <div className="modal-header">
-                <div>
-                  <span className="cat mono">{activeModal.category} · Territory {activeModal.number}</span>
-                  <h3>{activeModal.name}</h3>
-                </div>
-                <button 
-                  className="close-btn" 
-                  onClick={() => setActiveModal(null)}
-                  aria-label="Close dialog"
-                >
-                  <X size={20} />
-                </button>
-              </div>
-
-              <div className="modal-body">
-                <p className="modal-desc">{activeModal.details}</p>
-                
-                <div className="modal-meta">
-                  <div className="meta-row">
-                    <span className="mono meta-label">Production Route:</span>
-                    <span className="mono meta-val">{activeModal.route}</span>
-                  </div>
-                  <div className="meta-row">
-                    <span className="mono meta-label">Live Deployment:</span>
-                    <a 
-                      href={activeModal.liveUrl} 
-                      target="_blank" 
-                      rel="noopener noreferrer" 
-                      className="mono meta-link"
-                    >
-                      {activeModal.liveUrl} <ExternalLink size={12} className="inline-icon" />
-                    </a>
-                  </div>
-                  <div className="meta-row">
-                    <span className="mono meta-label">Source Repository:</span>
-                    <a 
-                      href={activeModal.repoUrl} 
-                      target="_blank" 
-                      rel="noopener noreferrer" 
-                      className="mono meta-link"
-                    >
-                      {activeModal.repoUrl} <ExternalLink size={12} className="inline-icon" />
-                    </a>
-                  </div>
-                </div>
-
-                <div className="modal-actions">
-                  <a
-                    href={activeModal.liveUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="cta-primary mono"
-                  >
-                    Open Live Deployment <ExternalLink size={14} className="inline-icon" />
-                  </a>
-                  <a
-                    href={activeModal.repoUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="cta-secondary mono"
-                  >
-                    View Source Repo <Code2 size={14} className="inline-icon" />
-                  </a>
-                </div>
-              </div>
-            </div>
-          </div>
-        )}
 
         <footer>
           <p className="line">Built outside the clean room.</p>
