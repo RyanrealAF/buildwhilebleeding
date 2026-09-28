@@ -79,7 +79,7 @@ nav a:hover{color:var(--bronze);border-color:var(--bronze)}
 .entry .body .cat{font-size:.7rem;text-transform:uppercase;color:var(--rust);display:block;margin-bottom:.2rem}
 .entry .body h2{
   font-family:'Big Shoulders Display',sans-serif;font-weight:700;text-transform:uppercase;
-  font-size:clamp(1.4rem,3.2vw,2rem);margin:0 0 .15rem;color:var(--highlight);
+  font-size:clamp(2rem,5vw,3.5rem);line-height:.95;margin:0 0 .45rem;color:var(--highlight);
   display:inline-flex;align-items:center;gap:.4rem;
   background-image:linear-gradient(var(--bronze),var(--bronze));background-repeat:no-repeat;
   background-position:0 100%;background-size:0% 1px;transition:background-size .25s
@@ -87,7 +87,10 @@ nav a:hover{color:var(--bronze);border-color:var(--bronze)}
 .entry .title-arrow{opacity:0;transform:translate(-3px, 3px);transition:opacity .2s,transform .2s;color:var(--bronze)}
 .archive .entry:hover .body h2{background-size:100% 1px}
 .archive .entry:hover .title-arrow{opacity:1;transform:translate(0, 0)}
-.entry .body p{margin:0;font-style:italic;color:var(--paper);opacity:.85;font-size:.84rem}
+.entry .body .description{margin:0 0 .65rem;font-style:italic;color:var(--paper);opacity:.9;font-size:clamp(.9rem,2vw,1rem)}
+.entry .body .details{max-width:62ch;margin:0 auto 1rem;color:var(--paper);opacity:.72;font-size:.86rem;line-height:1.55}
+.entry .visit-link{display:inline-flex;align-items:center;gap:.35rem;color:var(--bronze);font-size:.68rem;letter-spacing:.09em;border-bottom:1px solid rgba(197,163,106,.45);padding-bottom:.2rem;transition:color .2s,border-color .2s}
+.archive .entry:hover .visit-link{color:var(--highlight);border-color:var(--highlight)}
 
 .entry .actions{display:flex;align-items:center;gap:.6rem;justify-self:end}
 .action-btn{
@@ -145,7 +148,6 @@ footer .row{display:flex;justify-content:space-between;align-items:center;flex-w
 @media (max-width:640px){
   .archive .entry{grid-template-columns:1fr;gap:.8rem;padding:1.25rem 0}
   .entry .num{font-size:1.1rem}
-  .entry .route{margin-left:0}
   .modal-actions{flex-direction:column}
   .cta-primary, .cta-secondary{width:100%}
 }
