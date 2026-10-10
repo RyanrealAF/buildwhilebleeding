@@ -14,6 +14,7 @@ Build While Bleeding acts as the umbrella front door. Sub-territory projects rem
 | `/mosaic/*` | The Mosaic Theory | `https://the-mosaic-theory.pages.dev` | `RyanrealAF/The_Mosaic_Theory` | Vite + React SPA |
 | `/mosaic-theory/*` | The Mosaic Theory (alias) | `https://the-mosaic-theory.pages.dev` | `RyanrealAF/The_Mosaic_Theory` | Vite + React SPA |
 | `/library/seuss/*` | Seuss | `https://the-seuss-library.pages.dev` | `RyanrealAF/Seuss` | Static HTML / PDF Library |
+| `/jester/*` | Jester (Ring My Bell) | `https://jester-5i0.pages.dev` | `RyanrealAF/Jester` | Vite + React |
 
 ---
 
@@ -22,7 +23,7 @@ Build While Bleeding acts as the umbrella front door. Sub-territory projects rem
 Build While Bleeding uses **Cloudflare Pages Advanced Mode** via `public/_worker.js` (copied to `dist/_worker.js` during Vite build).
 
 ### Core Worker Responsibilities
-1. **Reverse Proxying**: Intercepts requests for mapped prefixes (`/hardwire`, `/the-leak-report`, `/cartography`, `/mosaic`, `/library/seuss`) and fetches upstream response content from `.pages.dev` origins while keeping the user's browser URL unchanged at `buildwhilebleeding.com`.
+1. **Reverse Proxying**: Intercepts requests for mapped prefixes (`/hardwire`, `/the-leak-report`, `/cartography`, `/mosaic`, `/library/seuss`, `/jester`) and fetches upstream response content from `.pages.dev` origins while keeping the user's browser URL unchanged at `buildwhilebleeding.com`.
 2. **Trailing Slash Enforcement (`308 Permanent Redirect`)**: Automatically redirects requests without trailing slashes (e.g. `/hardwire`) to `/hardwire/` to ensure browsers calculate relative asset requests (`./assets/...`) correctly.
 3. **Service Worker Interceptor**: Intercepts subpath calls to `/sw.js` and serves a no-op service worker to prevent scoped service workers from conflicting across territories or controlling the umbrella root scope.
 4. **Header Location Rewriting**: Rewrites upstream redirect `Location` headers so that relative redirects from project origins stay under `buildwhilebleeding.com`.
