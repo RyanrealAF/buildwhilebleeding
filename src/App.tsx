@@ -61,6 +61,16 @@ export const projects: Project[] = [
     liveUrl: "https://buildwhilebleeding.com/mosaic/",
     repoUrl: "https://github.com/RyanrealAF/The_Mosaic_Theory",
     details: "A reconstruction ledger for complex evidence. It examines physical injury, constitutional questions, medical documentation, legal records, timelines, and corroborating fragments as connected pieces that can be assembled into a larger factual picture."
+  },
+  {
+    number: "06",
+    name: "Jester",
+    category: "Broadcast",
+    description: "A fool, a ledger, and the truth.",
+    route: "/jester",
+    liveUrl: "https://buildwhilebleeding.com/jester/",
+    repoUrl: "https://github.com/RyanrealAF/Jester",
+    details: "An AI talk-radio show hosted by Feste, the licensed fool, and Ledger, keeper of the receipts. Each episode is built from real research through a seven-stage pipeline — research, script, voices, music, mix, metadata, cover art — with the listener supplying only the topic. Two permanent hosts, one fixed format, zero fake data."
   }
 ];
 
@@ -96,7 +106,7 @@ export default function App() {
         </section>
 
         <section className="index-intro">
-          <p>Five territories. One address.</p>
+          <p>Six territories. One address.</p>
           <span className="mono status-badge">
             <span className="status-dot"></span> DIRECT ACCESS ACTIVE
           </span>
