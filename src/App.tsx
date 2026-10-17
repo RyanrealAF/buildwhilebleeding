@@ -64,13 +64,13 @@ export const projects: Project[] = [
   },
   {
     number: "06",
-    name: "Jester",
-    category: "Broadcast",
-    description: "A fool, a ledger, and the truth.",
-    route: "/jester",
-    liveUrl: "https://buildwhilebleeding.com/jester/",
-    repoUrl: "https://github.com/RyanrealAF/Jester",
-    details: "An AI talk-radio show hosted by Feste, the licensed fool, and Ledger, keeper of the receipts. Each episode is built from real research through a seven-stage pipeline — research, script, voices, music, mix, metadata, cover art — with the listener supplying only the topic. Two permanent hosts, one fixed format, zero fake data."
+    name: "I'm the Proof",
+    category: "Music",
+    description: "Three diss tracks. Three opponents. Zero survivors.",
+    route: "/im-the-proof",
+    liveUrl: "https://buildwhilebleeding.com/im-the-proof/",
+    repoUrl: "https://im-the-proof.pages.dev/",
+    details: "A three-part diss trilogy — You the Promise, You the Talk, You the Fan. Each track opens with an accusation, moves through what actually happened, and ends in a verdict. Every bar is a receipt, every song has a beat-reactive lyric display."
   }
 ];
 
