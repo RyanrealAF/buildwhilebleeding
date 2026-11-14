@@ -71,6 +71,16 @@ export const projects: Project[] = [
     liveUrl: "https://buildwhilebleeding.com/im-the-proof/",
     repoUrl: "https://im-the-proof.pages.dev/",
     details: "A three-part diss trilogy — You the Promise, You the Talk, You the Fan. Each track opens with an accusation, moves through what actually happened, and ends in a verdict. Every bar is a receipt, every song has a beat-reactive lyric display."
+  },
+  {
+    number: "07",
+    name: "The Infiltrator's Playbook",
+    category: "Manual",
+    description: "One incident is a feeling. Ten, with timestamps, is a case.",
+    route: "/infiltrators-playbook",
+    liveUrl: "https://buildwhilebleeding.com/infiltrators-playbook/",
+    repoUrl: "https://github.com/RyanrealAF/Infiltrators_playbook",
+    details: "A textbook in strategic reversal: how a networked smear campaign works — the three-tier HUMINT unit, the exploitation cycle, and the Breadcrumb Web, the evidence system that turns a feeling into a case. The case study is told in the abstract, as the Builder and the Partner."
   }
 ];
 
@@ -106,7 +116,7 @@ export default function App() {
         </section>
 
         <section className="index-intro">
-          <p>Six territories. One address.</p>
+          <p>Seven territories. One address.</p>
           <span className="mono status-badge">
             <span className="status-dot"></span> DIRECT ACCESS ACTIVE
           </span>
