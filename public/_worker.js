@@ -601,9 +601,15 @@ export default {
       const proxyUrl = new URL(subPath, upstream);
       proxyUrl.search = url.search;
 
+      // GitHub Pages routes on the Host header: forwarding the incoming
+      // Host (buildwhilebleeding.com) makes it answer "Site not found".
+      // Drop it so fetch derives Host from the upstream URL instead.
+      const proxyHeaders = new Headers(request.headers);
+      proxyHeaders.delete("host");
+
       const proxyRequest = new Request(proxyUrl.toString(), {
         method: request.method,
-        headers: request.headers,
+        headers: proxyHeaders,
         body: request.method === "GET" || request.method === "HEAD" ? undefined : request.body,
         redirect: "manual",
       });
