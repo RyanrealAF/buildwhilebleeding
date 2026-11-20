@@ -598,12 +598,17 @@ export default {
     if (projectPrefix) {
       const upstream = PROJECTS[projectPrefix];
       const subPath = pathname.slice(projectPrefix.length) || "/";
-      const proxyUrl = new URL(subPath, upstream);
+      // NOTE: new URL("/", upstream) resolves to the upstream ORIGIN root
+      // and drops a pathful upstream's path — the worker was fetching
+      // ryanrealaf.github.io/ instead of .../Dummy/, and GitHub answers
+      // "Site not found" for the bare user-site root. Resolve the
+      // sub-path against the upstream as a directory so its path survives.
+      const base = upstream.endsWith("/") ? upstream : upstream + "/";
+      const proxyUrl = new URL(subPath.replace(/^\//, ""), base);
       proxyUrl.search = url.search;
 
-      // GitHub Pages routes on the Host header: forwarding the incoming
-      // Host (buildwhilebleeding.com) makes it answer "Site not found".
-      // Drop it so fetch derives Host from the upstream URL instead.
+      // Don't forward the incoming Host to a different origin; let fetch
+      // derive it from the upstream URL.
       const proxyHeaders = new Headers(request.headers);
       proxyHeaders.delete("host");
 
