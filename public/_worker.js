@@ -18,6 +18,8 @@ const PROJECTS = {
   "/mosaic-theory":    "https://the-mosaic-theory.pages.dev",
   "/library/seuss":   "https://the-seuss-library.pages.dev",
   "/infiltrators-playbook": "https://infiltrators-playbook.pages.dev",
+  "/dummy":           "https://ryanrealaf.github.io/Dummy/",
+  "/dont-go-dummy":   "https://ryanrealaf.github.io/Dummy/",
 };
 
 // ── Paths that require a trailing slash for relative asset resolution ───
@@ -30,6 +32,8 @@ const TRAILING_SLASH_REQUIRED = [
   "/library/seuss",
   "/cartography",
   "/infiltrators-playbook",
+  "/dummy",
+  "/dont-go-dummy",
 ];
 
 // ── Helper: find the matching project prefix for a pathname ─────────────

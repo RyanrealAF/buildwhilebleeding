@@ -81,6 +81,16 @@ export const projects: Project[] = [
     liveUrl: "https://buildwhilebleeding.com/infiltrators-playbook/",
     repoUrl: "https://github.com/RyanrealAF/Infiltrators_playbook",
     details: "A textbook in strategic reversal: how a networked smear campaign works — the three-tier HUMINT unit, the exploitation cycle, and the Breadcrumb Web, the evidence system that turns a feeling into a case. The case study is told in the abstract, as the Builder and the Partner."
+  },
+  {
+    number: "08",
+    name: "Don't Go Dummy",
+    category: "Guide",
+    description: "Their chaos. Your choice.",
+    route: "/dummy",
+    liveUrl: "https://buildwhilebleeding.com/dummy/",
+    repoUrl: "https://github.com/RyanrealAF/Dummy",
+    details: "A field guide to regulating yourself under friction. Seven modules, 28 subsections, 28 key terms, and 7 capstone exercises — a system for holding your composure when the world is trying to take it."
   }
 ];
 
@@ -116,7 +126,7 @@ export default function App() {
         </section>
 
         <section className="index-intro">
-          <p>Seven territories. One address.</p>
+          <p>Eight territories. One address.</p>
           <span className="mono status-badge">
             <span className="status-dot"></span> DIRECT ACCESS ACTIVE
           </span>
